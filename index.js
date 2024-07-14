@@ -36,6 +36,29 @@ app.post('/register', async (req, res) => {
 
     res.status(201).json(newUser.rows[0]);
 });
+app.get('/users', async (req, res) => {
+    const users = await pool.query('SELECT * FROM users');
+    res.status(201).json(users.rows);
+});
+
+
+app.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+    // Check if the user already exists
+    const hashedPassword = await bcrypt.hash(password, 10);
+    console.log("hashedPassword", hashedPassword)
+    const result = await pool.query('SELECT * FROM users WHERE email = $1 AND password = $2', [email, hashedPassword]);
+    if (result.rows.length === 0) {
+        return res.status(404).send('User not found');
+      }  
+    const user = result.rows[0]
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (isMatch) {
+       res.status(200).json({ message: 'Logged in Successfully' });
+    } else {
+       res.status(200).json({ message: 'Invalid User' });
+    }
+});
 
 
 app.listen(port, () => {
