@@ -47,7 +47,7 @@ app.post('/login', async (req, res) => {
     // Check if the user already exists
     const hashedPassword = await bcrypt.hash(password, 10);
     console.log("hashedPassword", hashedPassword)
-    const result = await pool.query('SELECT * FROM users WHERE email = $1 AND password = $2', [email, hashedPassword]);
+    const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
     if (result.rows.length === 0) {
         return res.status(404).send('User not found');
       }  
