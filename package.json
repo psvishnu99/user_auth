@@ -6,15 +6,19 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.js",
-    "migrate" : "node migrate.js",
-    "dev" :  "npm run migrate && npm start"
+    "migrate": "node migrate.js",
+    "dev": "npm run migrate && npm start"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
     "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.3",
     "moment": "^2.30.1",
     "nodemon": "^3.1.4",
     "pg": "^8.12.0"
